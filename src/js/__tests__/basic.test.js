@@ -1,56 +1,43 @@
 // import sum from '../basic';
+import specialDestructor from '../basic';
 
-// test('should sum', () => {
-//   const result = sum([1, 2, 3]);
-
-//   expect(result).toBe(6);
-// });
-import sortingByProps from '../basic';
-
-const obj = {
-  name: 'мечник',
-  health: 10,
-  level: 2,
-  attack: 80,
-  defence: 40,
-};
-
-test('testing standart work function orderByProps', () => {
-  const result = [
-    { key: 'name', value: 'мечник' },
-    { key: 'level', value: 2 },
-    { key: 'attack', value: 80 },
-    { key: 'defence', value: 40 },
-    { key: 'health', value: 10 },
-  ];
-  expect(result).toEqual(sortingByProps(obj, ['name', 'level']));
-});
-
-test('testing work function orderByProps with emty array', () => {
-  const result = [
-    { key: 'attack', value: 80 },
-    { key: 'defence', value: 40 },
-    { key: 'health', value: 10 },
-    { key: 'level', value: 2 },
-    { key: 'name', value: 'мечник' },
-  ];
-  expect(result).toEqual(sortingByProps(obj, []));
-});
-
-test('testing standart work function orderByProps', () => {
-  const object = {
-    health: 10,
-    defence: 40,
-    name: 'мечник',
-    attack: 80,
-    level: 2,
+test('testing specialDestructor function in standart case', () => {
+  const character = {
+    name: 'Лучник',
+    type: 'Bowman',
+    health: 50,
+    level: 3,
+    attack: 40,
+    defence: 10,
+    special: [
+      {
+        id: 8,
+        name: 'Двойной выстрел',
+        icon: 'http://...',
+        description: 'Двойной выстрел наносит двойной урон',
+      },
+      {
+        id: 9,
+        name: 'Нокаутирующий удар',
+        icon: 'http://...',
+        // <- обратите внимание, описание "засекречено"
+      },
+    ],
   };
   const result = [
-    { key: 'health', value: 10 },
-    { key: 'name', value: 'мечник' },
-    { key: 'attack', value: 80 },
-    { key: 'defence', value: 40 },
-    { key: 'level', value: 2 },
+    {
+      id: 8,
+      name: 'Двойной выстрел',
+      icon: 'http://...',
+      description: 'Двойной выстрел наносит двойной урон',
+    },
+    {
+      id: 9,
+      name: 'Нокаутирующий удар',
+      icon: 'http://...',
+      description: 'Описание недоступно',
+    },
   ];
-  expect(result).toEqual(sortingByProps(object, ['name', 'health']));
+
+  expect(result).toEqual(specialDestructor(character));
 });
